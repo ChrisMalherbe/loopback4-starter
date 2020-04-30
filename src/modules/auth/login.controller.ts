@@ -380,6 +380,10 @@ export class LoginController {
         },
       });
       authUser.permissions = this.getUserPermissions(utPerms, role.permissions);
+      
+      // @ts-ignore
+      authUser.permissions = authUser.permissions[0].replace('{', '').replace('}').split(',')
+      
       authUser.role = role.roleKey.toString();
       const accessToken = jwt.sign(
         authUser.toJSON(),
